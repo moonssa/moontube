@@ -1,3 +1,4 @@
+import "./db";
 import express from "express";
 import morgan from "morgan";
 
@@ -13,12 +14,13 @@ const logger = morgan("dev");
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 
 const handleListening = () =>
-  console.log(`ServerListening on port http://localhost::${PORT}`);
+  console.log(`✅ ServerListening on port http://localhost::${PORT}`);
 
 app.listen(4000, handleListening);
